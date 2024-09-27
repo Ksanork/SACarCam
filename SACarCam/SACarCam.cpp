@@ -65,11 +65,17 @@ DebugMenuAPI gDebugMenuAPI;
 		6.0f, 6.0f, 15.9f, 15.9f, 15.0f // far
 	};
 #else
+	//float CarZoomModes[] = {
+	//	-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
+	//	1.0f, 1.4f, 0.65f, 1.9f, 6.49f, // mid
+	//	6.0f, 6.0f, 15.9f, 15.9f, 15.0f // far
+	//};
+
 	float CarZoomModes[] = {
 		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
-		1.0f, 1.4f, 0.65f, 1.9f, 6.49f, // mid
-		6.0f, 6.0f, 15.9f, 15.9f, 15.0f // far
-	}; 
+		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // mid
+		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f // far
+	};
 #endif
 
 // Alpha angles (up-down)
@@ -479,8 +485,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 
 	float nextDistance = max(newDistance, minDistForVehType);
 
-	cam->CA_MAX_DISTANCE = newDistance;
-	cam->CA_MIN_DISTANCE = 3.5f;
+	//cam->CA_MAX_DISTANCE = newDistance;
+	//cam->CA_MIN_DISTANCE = 3.5f;
 
 	if (cam->ResetStatics) {
 		cam->FOV = DefaultFOV;
@@ -494,8 +500,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	else {
 		if (isCar || isBike) {
 			// 0.4f: CAR_FOV_START_SPEED
-			if (DotProduct(car->GetForward(), car->m_vecMoveSpeed) > 0.4f)
-				cam->FOV += (DotProduct(car->GetForward(), car->m_vecMoveSpeed) - 0.4f) * ms_fTimeStep;
+			//if (DotProduct(car->GetForward(), car->m_vecMoveSpeed) > 0.4f)
+				//cam->FOV += (DotProduct(car->GetForward(), car->m_vecMoveSpeed) - 0.4f) * ms_fTimeStep;
 		}
 
 		if (cam->FOV > DefaultFOV)
@@ -1250,10 +1256,10 @@ DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 
 			// Patch zoom modes
 			// Only for VC atm., III doesn't have zoom values per veh. types
-			for (int i = 0; i < sizeof(CarZoomModes) / sizeof(CarZoomModes[0]); i++) {
+			/*for (int i = 0; i < sizeof(CarZoomModes) / sizeof(CarZoomModes[0]); i++) {
 				addr a = 0x68AB70 + i*sizeof(CarZoomModes[0]);
 				Patch(a, CarZoomModes[i]);
-			}
+			}*/
 		}
 		else return FALSE;
 
