@@ -1,4 +1,4 @@
-# SarCarCam
+# SaCarCam
 Forked version with removed zoom during driving
 
 # Compilation
