@@ -59,23 +59,17 @@ DebugMenuAPI gDebugMenuAPI;
 // Car zoom modes per veh. types doesn't exist in III, so we will emulate it :) We're just injecting them for VC.
 // Original values from SA / LCS as of r6
 #ifdef LCS_CAM
-	float CarZoomModes[] = {
-		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
-		2.0f, 2.2f, 1.65f, 2.9f, 6.49f, // mid
-		6.0f, 6.0f, 15.9f, 15.9f, 15.0f // far
-	};
+float CarZoomModes[] = {
+	-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
+	2.0f, 2.2f, 1.65f, 2.9f, 6.49f, // mid
+	6.0f, 6.0f, 15.9f, 15.9f, 15.0f // far
+};
 #else
-	//float CarZoomModes[] = {
-	//	-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
-	//	1.0f, 1.4f, 0.65f, 1.9f, 6.49f, // mid
-	//	6.0f, 6.0f, 15.9f, 15.9f, 15.0f // far
-	//};
-
-	float CarZoomModes[] = {
-		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
-		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // mid
-		-1.0f, -0.2f, -3.2f, 0.05f, -2.41f // far
-	};
+float CarZoomModes[] = {
+	-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // near
+	-1.0f, -0.2f, -3.2f, 0.05f, -2.41f, // mid
+	-1.0f, -0.2f, -3.2f, 0.05f, -2.41f // far
+};
 #endif
 
 // Alpha angles (up-down)
@@ -89,13 +83,13 @@ float ZmThreeAlphaOffsetLCS[] = { 0.065f, 0.05f, 0.15f, 0.06f, 0.08f };
 
 // Debug menu toggles
 #ifdef LCS_CAM
-	bool heightIncreaseOnBike = false; // Not exists on LCS
-	bool useLCSalphaValues = true;
-	bool zoomOnWidescreen = true; // Because this is how we remember LCS, not needed if you're not using the widescreen fix
+bool heightIncreaseOnBike = false; // Not exists on LCS
+bool useLCSalphaValues = true;
+bool zoomOnWidescreen = true; // Because this is how we remember LCS, not needed if you're not using the widescreen fix
 #else
-	bool heightIncreaseOnBike = true;
-	bool useLCSalphaValues = false;
-	bool zoomOnWidescreen = false;
+bool heightIncreaseOnBike = true;
+bool useLCSalphaValues = false;
+bool zoomOnWidescreen = false;
 #endif
 bool fixTheBug = true;
 bool seeUnderwater = false;
@@ -104,17 +98,17 @@ bool seeUnderwater = false;
 
 void(*&RwCamera) = *AddressByVersion<void**>(0x72676C, 0, 0, 0x8100BC, 0, 0);
 
-CCameraIII *TheCameraIII = (CCameraIII*)0x6FACF8;
-CCameraVC *TheCameraVC = (CCameraVC*)0x7E4688;
+CCameraIII* TheCameraIII = (CCameraIII*)0x6FACF8;
+CCameraVC* TheCameraVC = (CCameraVC*)0x7E4688;
 
 // Actually static member of CCamera
 bool& m_bUseMouse3rdPerson = *AddressByVersion<bool*>(0x5F03D8, 0, 0, 0xA10B4C, 0, 0);
 
-cDMAudio &DMAudio = *AddressByVersion<cDMAudio*>(0x95CDBE, 0, 0, 0xA10B8A, 0, 0);
+cDMAudio& DMAudio = *AddressByVersion<cDMAudio*>(0x95CDBE, 0, 0, 0xA10B8A, 0, 0);
 
 // These are static members of CWorld
 CColPoint& ms_testSpherePoint = *AddressByVersion<CColPoint*>(0x6E64C0, 0, 0, 0x7D18C0, 0, 0);
-CEntity*& pIgnoreEntity = *AddressByVersion<CEntity **>(0x8F6494, 0, 0, 0x9B6E58, 0, 0);
+CEntity*& pIgnoreEntity = *AddressByVersion<CEntity**>(0x8F6494, 0, 0, 0x9B6E58, 0, 0);
 
 addr plosAddress = AddressByVersion<addr>(0x4AF970, 0, 0, 0x4D92D0, 0, 0);
 WRAPPER bool CWorldIII::ProcessLineOfSight(const CVector& point1, const CVector& point2, CColPoint& point, CEntity*& entity, bool checkBuildings, bool checkVehicles, bool checkPeds, bool checkObjects, bool checkDummies, bool ignoreSeeThrough, bool ignoreSomeObjects) { EAXJMP(plosAddress); }
@@ -133,7 +127,7 @@ WRAPPER void* RwCameraSetNearClipPlane(void* camera, float nearClip) { EAXJMP(rc
 addr posAddress = AddressByVersion<addr>(0x57C840, 0, 0, 0x5F9DA0, 0, 0);
 WRAPPER void cDMAudio::PlayOneShot(int32 audioEntity, uint16 oneShot, float volume) { EAXJMP(posAddress); }
 
-CBaseModelInfo** CModelInfo::ms_modelInfoPtrs = AddressByVersion<CBaseModelInfo **>(0x83D408, 0, 0, 0x92D4C8, 0, 0);
+CBaseModelInfo** CModelInfo::ms_modelInfoPtrs = AddressByVersion<CBaseModelInfo**>(0x83D408, 0, 0, 0x92D4C8, 0, 0);
 
 addr attachAddress = AddressByVersion<addr>(0x4B8DD0, 0, 0, 0x4DFA40, 0, 0);
 addr updateRwAddress = AddressByVersion<addr>(0x4B8EC0, 0, 0, 0x4DF8F0, 0, 0);
@@ -144,10 +138,10 @@ addr ditbAddress = AddressByVersion<addr>(0x48BFB0, 0, 0, 0x4A4C02, 0, 0);
 void (*DebugInitTextBuffer)();
 
 // Actually static member of CVehicle
-bool &m_bDisableMouseSteering = *AddressByVersion<bool*>(0x60252C, 0, 0, 0x69C610, 0, 0);
+bool& m_bDisableMouseSteering = *AddressByVersion<bool*>(0x60252C, 0, 0, 0x69C610, 0, 0);
 
-uint32 &m_snTimeInMilliseconds = *AddressByVersion<uint32*>(0x885B48, 0, 0, 0x974B2C, 0, 0);
-float &ms_fTimeStep = *AddressByVersion<float*>(0x8E2CB4, 0, 0, 0x975424, 0, 0);
+uint32& m_snTimeInMilliseconds = *AddressByVersion<uint32*>(0x885B48, 0, 0, 0x974B2C, 0, 0);
+float& ms_fTimeStep = *AddressByVersion<float*>(0x8E2CB4, 0, 0, 0x975424, 0, 0);
 
 #define RwFrameGetMatrix(frame) (RwMatrix*)((addr)frame + 0x10)
 #define GetVehicleComponent(car, comp) *(void**)((addr)car + (isIII() ? 0x37C : 0x394) + comp*4) // In CAutomobile. normally returns RwFrame*
@@ -176,16 +170,17 @@ float GetAspectRatio() {
 
 			RsGlobalType& RsGlobal = *(RsGlobalType*)0x8F4360;
 			return aspectRatio = ((float)RsGlobal.width) / ((float)RsGlobal.height);
-		} else
+		}
+		else
 			return aspectRatio;
 	}
 }
 
-float GetMouseAccel(CCameraVC *camera) {
+float GetMouseAccel(CCameraVC* camera) {
 	return *(float*)0x94DBD0; // CCamera::m_fMouseAccelHorzntl
 }
 
-float GetMouseAccel(CCameraIII *camera) {
+float GetMouseAccel(CCameraIII* camera) {
 	return camera->m_fMouseAccelHorzntl;
 }
 
@@ -266,7 +261,8 @@ void registerDebugMenu() {
 			DebugMenuAddVarBool8("SACarCam", "Fix Camera clipping through the model bug", (int8*)&fixTheBug, nil);
 			DebugMenuAddVarBool8("SACarCam", "Don't keep camera over water", (int8*)&seeUnderwater, nil);
 			debugMenuLoaded = 2;
-		} else
+		}
+		else
 			debugMenuLoaded = 1;
 	}
 	DebugInitTextBuffer();
@@ -298,7 +294,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 			OnGInputSettingsReload();
 			ginputPad->SendEvent(GINPUT_EVENT_REGISTER_SETTINGS_RELOAD_CALLBACK, OnGInputSettingsReload);
 			ginputLoaded = 2;
-		} else
+		}
+		else
 			ginputLoaded = 1;
 	}
 
@@ -321,26 +318,27 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 #ifdef LCS_CAM
 	if (car->m_modelIndex == FireTruk) {
 		camSetArrPos = 7;
-	} else
+	}
+	else
 #endif
-	if (car->m_modelIndex == RcBandit || (isVC() && !isReLCS && car->m_modelIndex == MI_VC_RCBARON)) {
-		camSetArrPos = 5;
-	}
-	else if (isVC() && (car->m_modelIndex == RcRaider || car->m_modelIndex == RcGoblin)) {
-		camSetArrPos = 6;
-	}
-	else if (car->IsBoat()) {
-		camSetArrPos = 4;
-	}
-	else if (isBike) {
-		camSetArrPos = 1;
-	}
-	else if (isPlane) {
-		camSetArrPos = 3;
-	}
-	else if (isHeli) {
-		camSetArrPos = 2;
-	}
+		if (car->m_modelIndex == RcBandit || (isVC() && !isReLCS && car->m_modelIndex == MI_VC_RCBARON)) {
+			camSetArrPos = 5;
+		}
+		else if (isVC() && (car->m_modelIndex == RcRaider || car->m_modelIndex == RcGoblin)) {
+			camSetArrPos = 6;
+		}
+		else if (car->IsBoat()) {
+			camSetArrPos = 4;
+		}
+		else if (isBike) {
+			camSetArrPos = 1;
+		}
+		else if (isPlane) {
+			camSetArrPos = 3;
+		}
+		else if (isHeli) {
+			camSetArrPos = 2;
+		}
 
 #ifdef LCS_CAM
 	// LCS one but index 1(firetruck) moved to last
@@ -375,19 +373,19 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	else {
 		switch ((int)TheCamera->CarZoomIndicator) {
 			// near
-			case 1:
-				zoomModeAlphaOffset = (useLCSalphaValues ? ZmOneAlphaOffsetLCS[alphaArrPos] : ZmOneAlphaOffset[alphaArrPos]);
-				break;
+		case 1:
+			zoomModeAlphaOffset = (useLCSalphaValues ? ZmOneAlphaOffsetLCS[alphaArrPos] : ZmOneAlphaOffset[alphaArrPos]);
+			break;
 			// mid
-			case 2:
-				zoomModeAlphaOffset = (useLCSalphaValues ? ZmTwoAlphaOffsetLCS[alphaArrPos] : ZmTwoAlphaOffset[alphaArrPos]);
-				break;
+		case 2:
+			zoomModeAlphaOffset = (useLCSalphaValues ? ZmTwoAlphaOffsetLCS[alphaArrPos] : ZmTwoAlphaOffset[alphaArrPos]);
+			break;
 			// far
-			case 3:
-				zoomModeAlphaOffset = (useLCSalphaValues ? ZmThreeAlphaOffsetLCS[alphaArrPos] : ZmThreeAlphaOffset[alphaArrPos]);
-				break;
-			default:
-				break;
+		case 3:
+			zoomModeAlphaOffset = (useLCSalphaValues ? ZmThreeAlphaOffsetLCS[alphaArrPos] : ZmThreeAlphaOffset[alphaArrPos]);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -396,10 +394,11 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	float approxCarLength = 2.0f * fabsf(carCol->boundingBox.min.y); // SA taxi min.y = -2.95, max.z = 0.883502f
 
 	// Turned off by default on LCS_CAM
-	if(heightIncreaseOnBike) {
+	if (heightIncreaseOnBike) {
 		if (!isBike) {
 			heightIncreaseMult = 0.0f;
-		} else {
+		}
+		else {
 			// Increase colMaxZ slowly when there is a passenger on bike
 			if (car->pPassengers[0])
 			{
@@ -418,6 +417,7 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	}
 
 	float hackedZoomValue = TheCamera->CarZoomValueSmooth;
+	//float hackedZoomValue = 0;
 
 	// Emulate the zoom values per veh. type in III!
 	// Original values: 3.9 - far, 1.9 - mid, 0.05 - near
@@ -427,8 +427,9 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 			hackedZoomValue = CarZoomModes[alphaArrPos + 2 * 5];
 		else if ((int)TheCamera->CarZoomIndicator == 2) {
 			hackedZoomValue = (CarZoomModes[alphaArrPos + 1 * 5]) +
-							  (hackedZoomValue - 1.9f) * (CarZoomModes[alphaArrPos + 2 * 5] - CarZoomModes[alphaArrPos + 1 * 5]) / (3.9f - 1.9f);
-		} else if ((int)TheCamera->CarZoomIndicator == 1) {
+				(hackedZoomValue - 1.9f) * (CarZoomModes[alphaArrPos + 2 * 5] - CarZoomModes[alphaArrPos + 1 * 5]) / (3.9f - 1.9f);
+		}
+		else if ((int)TheCamera->CarZoomIndicator == 1) {
 			hackedZoomValue = (CarZoomModes[alphaArrPos + 0 * 5]) +
 				(hackedZoomValue - 0.05f) * (CarZoomModes[alphaArrPos + 1 * 5] - CarZoomModes[alphaArrPos + 0 * 5]) / (1.9f - 0.05f);
 		}
@@ -450,7 +451,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 		if (car->m_modelIndex != RcRaider && car->m_modelIndex != RcGoblin) {
 			if (!isReLCS && car->m_modelIndex == MI_VC_RCBARON)
 				newDistance += 9.5f;
-		} else
+		}
+		else
 			newDistance += 6.0f;
 	}
 	float minDistForThisCar = approxCarLength * CARCAM_SET[camSetArrPos][3];
@@ -485,8 +487,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 
 	float nextDistance = max(newDistance, minDistForVehType);
 
-	//cam->CA_MAX_DISTANCE = newDistance;
-	//cam->CA_MIN_DISTANCE = 3.5f;
+	cam->CA_MAX_DISTANCE = newDistance;
+	cam->CA_MIN_DISTANCE = 3.5f;
 
 	if (cam->ResetStatics) {
 		cam->FOV = DefaultFOV;
@@ -499,9 +501,9 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	}
 	else {
 		if (isCar || isBike) {
-			// 0.4f: CAR_FOV_START_SPEED
-			//if (DotProduct(car->GetForward(), car->m_vecMoveSpeed) > 0.4f)
-				//cam->FOV += (DotProduct(car->GetForward(), car->m_vecMoveSpeed) - 0.4f) * ms_fTimeStep;
+			 // 0.4f: CAR_FOV_START_SPEED
+			/*if (DotProduct(car->GetForward(), car->m_vecMoveSpeed) > 0.4f)
+				cam->FOV += (DotProduct(car->GetForward(), car->m_vecMoveSpeed) - 0.4f) * ms_fTimeStep;*/
 		}
 
 		if (cam->FOV > DefaultFOV)
@@ -512,7 +514,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 		{
 			if (cam->FOV < DefaultFOV)
 				cam->FOV = DefaultFOV;
-		} else
+		}
+		else
 			cam->FOV = DefaultFOV + 30.0f;
 	}
 
@@ -613,37 +616,37 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	// Fix camera enters into car bug by default
 	if (fixTheBug || car->m_vecMoveSpeed.MagnitudeSqr() < 0.04f)
 #ifdef LCS_CAM
-	if (car->m_modelIndex != FireTruk)
+		if (car->m_modelIndex != FireTruk)
 #endif
-	if (!isBike || GetMysteriousWheelRelatedThingBike(car) > 3)
-		if (!isHeli && (!isPlane || GetWheelsOnGround(car))) {
-			CVector out = CrossProduct(car->GetForward(), CVector(0.0f, 0.0f, 1.0f));
-			out.Normalise();
-			CVector v173 = CrossProduct(out, car->GetForward());
-			v173.Normalise();
-			float v83 = DotProduct(v173, cam->Front);
-			if (v83 > 0.0)
-			{
-				float v88 = asinf(fabsf(sinf(cam->Beta - (car->GetForward().Heading() - HALFPI))));
-				float v200;
-				if (v88 <= atan2f(carCol->boundingBox.max.x, -carCol->boundingBox.min.y))
-				{
-					v200 = (1.5f - carCol->boundingBox.min.y) / cosf(v88);
+			if (!isBike || GetMysteriousWheelRelatedThingBike(car) > 3)
+				if (!isHeli && (!isPlane || GetWheelsOnGround(car))) {
+					CVector out = CrossProduct(car->GetForward(), CVector(0.0f, 0.0f, 1.0f));
+					out.Normalise();
+					CVector v173 = CrossProduct(out, car->GetForward());
+					v173.Normalise();
+					float v83 = DotProduct(v173, cam->Front);
+					if (v83 > 0.0)
+					{
+						float v88 = asinf(fabsf(sinf(cam->Beta - (car->GetForward().Heading() - HALFPI))));
+						float v200;
+						if (v88 <= atan2f(carCol->boundingBox.max.x, -carCol->boundingBox.min.y))
+						{
+							v200 = (1.5f - carCol->boundingBox.min.y) / cosf(v88);
+						}
+						else
+						{
+							float a6g = 1.2f + carCol->boundingBox.max.x;
+							v200 = a6g / cos(max(0.0f, HALFPI - v88));
+						}
+						maxAlphaAllowed = cos(cam->Beta - (car->GetForward().Heading() - HALFPI)) * atan2f(car->GetForward().z, car->GetForward().Magnitude2D())
+							+ atan2f(TargetCoors.z - car->GetPosition().z + GetHeightAboveRoad(car, ColModelClass), v200 * 1.2f);
+						if (isCar && GetWheelsOnGround(car) > 1
+							&& fabsf(DotProduct(car->m_vecTurnSpeed, car->GetForward())) < 0.05f)
+						{
+							maxAlphaAllowed += cosf(cam->Beta - (car->GetForward().Heading() - HALFPI) + HALFPI) * atan2f(car->GetRight().z, car->GetRight().Magnitude2D());
+						}
+					}
 				}
-				else
-				{
-					float a6g = 1.2f + carCol->boundingBox.max.x;
-					v200 = a6g / cos(max(0.0f, HALFPI - v88));
-				}
-				maxAlphaAllowed = cos(cam->Beta - (car->GetForward().Heading() - HALFPI)) * atan2f(car->GetForward().z, car->GetForward().Magnitude2D())
-					+ atan2f(TargetCoors.z - car->GetPosition().z + GetHeightAboveRoad(car, ColModelClass), v200 * 1.2f);
-				if (isCar && GetWheelsOnGround(car) > 1
-					&& fabsf(DotProduct(car->m_vecTurnSpeed, car->GetForward())) < 0.05f)
-				{
-					maxAlphaAllowed += cosf(cam->Beta - (car->GetForward().Heading() - HALFPI) + HALFPI) * atan2f(car->GetRight().z, car->GetRight().Magnitude2D());
-				}
-			}
-		}
 
 	float targetAlpha = asinf(clamp(cam->Front.z, -1.0f, 1.0f)) - zoomModeAlphaOffset;
 	if (targetAlpha <= maxAlphaAllowed)
@@ -694,12 +697,13 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 
 	bool correctAlpha = true;
 	//	if (SA checks if we aren't in work car, why?) {
-			if (!isCar || car->m_modelIndex != CarWithHydraulics) {
-				correctAlpha = false;
-			} else {
-				xMovement = 0.0f;
-				yMovement = 0.0f;
-			}
+	if (!isCar || car->m_modelIndex != CarWithHydraulics) {
+		correctAlpha = false;
+	}
+	else {
+		xMovement = 0.0f;
+		yMovement = 0.0f;
+	}
 	//	} else
 	//		yMovement = 0.0;
 
@@ -780,7 +784,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 
 		if (!alphaCorrected && fabsf(zoomModeAlphaOffset + cam->Alpha) > 0.05f) {
 			yMovement = (-zoomModeAlphaOffset - cam->Alpha) * 0.05f;
-		} else
+		}
+		else
 			alphaCorrected = true;
 	}
 	float alphaSpeedFromStickY = yMovement * CARCAM_SET[camSetArrPos][12];
@@ -805,7 +810,7 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	else
 		v121 = ms_fTimeStep * cam->BetaSpeed;
 	cam->Beta = v121 + cam->Beta;
-	
+
 	// SA:
 	if (TheCamera->m_bJustCameOutOfGarage)
 		cam->Beta = GetATanOfXY(cam->Front.x, cam->Front.y) + PI;
@@ -836,7 +841,7 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 #endif
 		if (isCar && GetWheelsOnGround(car) > 1 ||
 			isBike && GetMysteriousWheelRelatedThingBike(car) > 1)
-				alphaSpeedFromStickY += (targetAlpha - cam->Alpha) * 0.075f;
+			alphaSpeedFromStickY += (targetAlpha - cam->Alpha) * 0.075f;
 	}
 
 	cam->AlphaSpeed = angleChangeStepLeft * alphaSpeedFromStickY + angleChangeStep * cam->AlphaSpeed;
@@ -962,7 +967,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 						RwCameraSetNearClipPlane(RwCamera, lessClip);
 					else
 						RwCameraSetNearClipPlane(RwCamera, 0.9f);
-				} else {
+				}
+				else {
 					obstacleTargetDist = (TargetCoors - foundCol.point).Magnitude();
 					cam->Source = foundCol.point;
 					if (obstacleTargetDist < 1.2f)
@@ -1049,7 +1055,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 		if (angleToFace <= *GetDoomAnglePtrLR(car) + PI) {
 			if (angleToFace < *GetDoomAnglePtrLR(car) - PI)
 				angleToFace = angleToFace + TWOPI;
-		} else {
+		}
+		else {
 			angleToFace = angleToFace - TWOPI;
 		}
 
@@ -1058,7 +1065,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 		if (neededTurn <= turnPerFrame) {
 			if (neededTurn < -turnPerFrame)
 				angleToFace = *GetDoomAnglePtrLR(car) - turnPerFrame;
-		} else {
+		}
+		else {
 			angleToFace = turnPerFrame + *GetDoomAnglePtrLR(car);
 		}
 
@@ -1069,7 +1077,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 
 		if (*GetDoomAnglePtrLR(car) < -PI) {
 			*GetDoomAnglePtrLR(car) += TWOPI;
-		} else if (*GetDoomAnglePtrLR(car) > PI) {
+		}
+		else if (*GetDoomAnglePtrLR(car) > PI) {
 			*GetDoomAnglePtrLR(car) -= TWOPI;
 		}
 
@@ -1082,10 +1091,12 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 			if (neededAlphaTurn > alphaTurnPerFrame) {
 				neededTurn = alphaTurnPerFrame;
 				*GetDoomAnglePtrUD(car) = neededTurn + *GetDoomAnglePtrUD(car);
-			} else {
+			}
+			else {
 				if (neededAlphaTurn >= -alphaTurnPerFrame) {
 					*GetDoomAnglePtrUD(car) = alphaToFace;
-				} else {
+				}
+				else {
 					*GetDoomAnglePtrUD(car) = *GetDoomAnglePtrUD(car) - alphaTurnPerFrame;
 				}
 			}
@@ -1095,7 +1106,8 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 			if (turretMinY <= *GetDoomAnglePtrUD(car)) {
 				if (*GetDoomAnglePtrUD(car) > turretMaxY)
 					*GetDoomAnglePtrUD(car) = turretMaxY;
-			} else {
+			}
+			else {
 				*GetDoomAnglePtrUD(car) = turretMinY;
 			}
 
@@ -1117,7 +1129,7 @@ Process_FollowCar_SA(const CVector& CameraTarget, float TargetOrientation, CamCl
 	}
 
 	previousMode = cam->Mode;
-}
+	}
 
 void
 CCamVC::GetVectorsReadyForRW(void)
@@ -1171,9 +1183,9 @@ WellBufferMe(float Target, float* CurrentValue, float* CurrentSpeed, float MaxSp
 
 	// Clamp speed if we overshot
 	if (TargetSpeed < 0.0f && *CurrentSpeed < TargetSpeed)
-		* CurrentSpeed = TargetSpeed;
+		*CurrentSpeed = TargetSpeed;
 	else if (TargetSpeed > 0.0f && *CurrentSpeed > TargetSpeed)
-		* CurrentSpeed = TargetSpeed;
+		*CurrentSpeed = TargetSpeed;
 
 	*CurrentValue += *CurrentSpeed * min(10.0f, ms_fTimeStep);
 
@@ -1200,13 +1212,13 @@ CPad::FakeCarGunUpDown(void)
 #undef currentMode
 
 void
-CCamIII::Process_FollowCar_SA_III(const CVector &CameraTarget, float TargetOrientation, float, float)
+CCamIII::Process_FollowCar_SA_III(const CVector & CameraTarget, float TargetOrientation, float, float)
 {
 	Process_FollowCar_SA<CCamIII, CCameraIII, CVehicleIII, CWorldIII, CColModelIII>(CameraTarget, TargetOrientation, this, TheCameraIII);
 }
 
 void
-CCamVC::Process_FollowCar_SA_VC(const CVector &CameraTarget, float TargetOrientation, float, float)
+CCamVC::Process_FollowCar_SA_VC(const CVector & CameraTarget, float TargetOrientation, float, float)
 {
 	Process_FollowCar_SA<CCamVC, CCameraVC, CVehicleVC, CWorldVC, CColModelVC>(CameraTarget, TargetOrientation, this, TheCameraVC);
 }
@@ -1226,7 +1238,7 @@ DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 		}
 		*/
 
-		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCWSTR)& DllMain, &hDummyHandle);
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCWSTR)&DllMain, &hDummyHandle);
 
 		// III
 		if (*(DWORD*)0x5C1E70 == 0x53E58955) {
@@ -1238,8 +1250,9 @@ DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 			InjectHook(0x52260E, &CPad::FakeCarGunUpDown, PATCH_NOTHING);
 			InjectHook(0x53D628, &CPad::FakeCarGunLeftRight, PATCH_NOTHING);
 			InjectHook(0x5225D2, &CPad::FakeCarGunLeftRight, PATCH_NOTHING);
-		// VC
-		} else if (*(DWORD*)0x667BF5 == 0xB85548EC) {
+			// VC
+		}
+		else if (*(DWORD*)0x667BF5 == 0xB85548EC) {
 
 			// checks for settings file name (gta_lcs.set in this case)
 			isReLCS = *(DWORD*)0x68CFCC == 0x2E73636C;
@@ -1256,10 +1269,10 @@ DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 
 			// Patch zoom modes
 			// Only for VC atm., III doesn't have zoom values per veh. types
-			/*for (int i = 0; i < sizeof(CarZoomModes) / sizeof(CarZoomModes[0]); i++) {
-				addr a = 0x68AB70 + i*sizeof(CarZoomModes[0]);
-				Patch(a, CarZoomModes[i]);
-			}*/
+			//for (int i = 0; i < sizeof(CarZoomModes) / sizeof(CarZoomModes[0]); i++) {
+			//	addr a = 0x68AB70 + i * sizeof(CarZoomModes[0]);
+			//	Patch(a, CarZoomModes[i]);
+			//}
 		}
 		else return FALSE;
 
